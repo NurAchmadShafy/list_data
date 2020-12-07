@@ -37,7 +37,7 @@ if (isset($_POST['add_data'])) {
 
     <div class="pt-5">
       <div class="float-left ml-5 pl-5">
-          <h3>EMPLOYEER MANAGEMENT</h3>
+          <h3>DASHBOARD</h3>
       </div>
       <div class="text-center float-right mr-5 pr-5">
           <form method="POST">
