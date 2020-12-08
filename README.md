@@ -5,7 +5,7 @@ Use your Xampp & import .sql from this project (make a database with name "emplo
 
 then? ah.. You must have known..
 
-THIS PROJECT IS NOT PERFECT, NOT YET!
+<b>THIS PROJECT IS NOT PERFECT, NOT YET!!</b>
 
 i have some screenshoot from my project.
 if you're interested, just download it..
