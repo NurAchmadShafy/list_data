@@ -18,8 +18,14 @@ if (isset($_POST['add_data'])) {
     header('LOCATION:admin_page.php');
 }
 
-// $id = $_GET['edit'];
-// $resultt = query("SELECT * FROM employees WHERE id=$id");
+if(isset($_POST['save'])) {
+  update_data($_POST);
+  header('LOCATION:admin_page.php');
+}
+
+if(isset($_POST['delete'])){
+  delete_data($_POST['id']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +86,7 @@ if (isset($_POST['add_data'])) {
                       <tr>
                           <th><?php echo $data['id'] ?></th>
                           <td>
-                              <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php  echo $debug ?>"><?php echo $data['name'] ?></a>
+                              <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><?php echo $data['name'] ?></a>
                           </td>
                           <td><?php echo $data['address'] ?></td>
                           <td><?php echo $data['salary'] ?></td>
@@ -154,6 +160,7 @@ if (isset($_POST['add_data'])) {
                   </div>
                   <form method="POST">
                       <div class="modal-body">
+                          <input type="hidden" name="id" id="idEdit" class="form-control">
                           <div class="form-group">
                               <label for="name" class="text-primary">Name:</label><br>
                               <input type="text" name="name" id="nameEdit" class="form-control" required>
@@ -188,13 +195,14 @@ if (isset($_POST['add_data'])) {
           </div>
         </form>
       </div>
-        <script>
+
+      <script>
           $(document).ready(function(){
             var valuess;
             $(".openEditDialog").click(function() {
               valuess = $(this).attr("data-id");
               valuess = valuess.split(",");
-              console.log(valuess);
+              $("#idEdit").val(valuess[0]);
               $("#nameEdit").val(valuess[1]);
               $("#addressEdit").val(valuess[2]);
               $("#salaryEdit").val(valuess[3]);
@@ -203,7 +211,7 @@ if (isset($_POST['add_data'])) {
               $("#data_departementEdit").val(valuess[6]);
             });
           });
-        </script>
+      </script>
 </body>
 
 </html>

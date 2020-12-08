@@ -58,7 +58,7 @@
               <?php foreach ($sql as $data) : ?>
                   <tbody>
                       <tr>
-                          <th id="id"><?php echo $data['id'] ?></th>
+                          <th><?php echo $data['id'] ?></th>
                           <td><?php echo $data['name'] ?></td>
                           <td><?php echo $data['address'] ?></td>
                           <td><?php echo $data['salary'] ?></td>
