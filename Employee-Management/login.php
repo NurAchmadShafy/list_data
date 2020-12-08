@@ -7,7 +7,7 @@
     }
 
     if(isset($_POST['submit'])){
-        $username = $_POST['username']; 
+        $username = $_POST['username'];
         $password = $_POST['password'];
         $sql = query("SELECT * FROM users");
         if($username == $sql[0]['username'] && $password == $sql[0]['password']){

@@ -1,4 +1,4 @@
-<?php
+  <?php
 session_start();
 require 'auth.php';
 $sql = query("SELECT * FROM employees");
@@ -17,6 +17,9 @@ if (isset($_POST['add_data'])) {
     add_data($_POST);
     header('LOCATION:admin_page.php');
 }
+
+// $id = $_GET['edit'];
+// $resultt = query("SELECT * FROM employees WHERE id=$id");
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +34,8 @@ if (isset($_POST['add_data'])) {
             background-color: #fafafa;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -70,12 +75,13 @@ if (isset($_POST['add_data'])) {
               </thead>
 
               <?php foreach ($sql as $data) : ?>
+                  <?php $debug = implode(",", $data)?>
                   <tbody>
                       <tr>
-                          <th id="id"><?php echo $data['id'] ?></th>
-                          <form method="POST">
-                              <td><a href="" data-toggle="modal" data-target="#modal2"><?php echo $data['name'] ?></a></td>
-                          </form>
+                          <th><?php echo $data['id'] ?></th>
+                          <td>
+                              <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php  echo $debug ?>"><?php echo $data['name'] ?></a>
+                          </td>
                           <td><?php echo $data['address'] ?></td>
                           <td><?php echo $data['salary'] ?></td>
                           <td><?php echo $data['position'] ?></td>
@@ -137,7 +143,7 @@ if (isset($_POST['add_data'])) {
       </div>
 
       <!-- POP UP EDIT / DELETE DATA  -->
-      <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" id="openDialog">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
@@ -146,45 +152,58 @@ if (isset($_POST['add_data'])) {
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <form action="" method="POST" action="#">
+                  <form method="POST">
                       <div class="modal-body">
                           <div class="form-group">
                               <label for="name" class="text-primary">Name:</label><br>
-                              <input type="text" name="name" id="name" class="form-control" required>
+                              <input type="text" name="name" id="nameEdit" class="form-control" required>
                           </div>
                           <div class="form-group">
                               <label for="address" class="text-primary">Address:</label><br>
-                              <input type="text" name="address" id="address" class="form-control" required>
+                              <input type="text" name="address" id="addressEdit" class="form-control" required>
                           </div>
                           <div class="form-group">
                               <label for="salary" class="text-primary">Salary:</label><br>
-                              <input type="text" name="salary" id="salary" class="form-control" required>
+                              <input type="text" name="salary" id="salaryEdit" class="form-control" required>
                           </div>
                           <div class="form-group">
                               <label for="Position" class="text-primary">Position:</label><br>
-                              <input type="text" name="position" id="position" class="form-control" required>
+                              <input type="text" name="position" id="positionEdit" class="form-control" required>
                           </div>
                           <div class="form-group">
                               <label for="allowance" class="text-primary">Allowance:</label><br>
-                              <input type="text" name="allowance" id="allowance" class="form-control" required>
+                              <input type="text" name="allowance" id="allowanceEdit" class="form-control" required>
                           </div>
                           <div class="form-group">
                               <label for="data_departement" class="text-primary">data departement:</label><br>
-                              <input type="text" name="data_departement" id="data_departement" class="form-control" required>
+                              <input type="text" name="data_departement" id="data_departementEdit" class="form-control" required>
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button type="submit" name="add_data" class="btn btn-danger">Delete</button>
-                          <button type="submit" name="add_data" class="btn btn-primary">Save Data</button>
+                          <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Hapus?')">Delete</button>
+                          <button type="submit" name="save" class="btn btn-primary">Save Data</button>
                       </div>
                   </form>
               </div>
           </div>
         </form>
       </div>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script>
+          $(document).ready(function(){
+            var valuess;
+            $(".openEditDialog").click(function() {
+              valuess = $(this).attr("data-id");
+              valuess = valuess.split(",");
+              console.log(valuess);
+              $("#nameEdit").val(valuess[1]);
+              $("#addressEdit").val(valuess[2]);
+              $("#salaryEdit").val(valuess[3]);
+              $("#positionEdit").val(valuess[4]);
+              $("#allowanceEdit").val(valuess[5]);
+              $("#data_departementEdit").val(valuess[6]);
+            });
+          });
+        </script>
 </body>
 
 </html>
