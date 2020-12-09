@@ -31,16 +31,16 @@
 
 <body>
 
-    <div class="pt-5">
+    <div class="pt-5 mx-sm-5">
       <div class="float-left ml-5 pl-5">
           <h3>EMPLOYEER MANAGEMENT</h3>
       </div>
-      <div class="text-center float-right pr-5">
+      <div class="text-center float-right pr-5 mx-sm-2 ">
         <form method="POST">
             <input type="submit" name="login" class="btn btn-primary" value="Login">
         </form>
       </div>
-      <div class="text-center float-right pr-3 pt-2">
+      <div class="text-center float-right pr-1 pt-2">
         <h5 class="float-right text-primary">Have an account??</h5>
       </div>
     </div>
