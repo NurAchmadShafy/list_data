@@ -10,17 +10,21 @@
     if(isset($_SESSION['login'])) {
         header('LOCATION:admin_page.php');
     }
+
+    if(isset($_POST['search'])) {
+        $sql = search_data($_POST['keyword']);
+    }
 ?>
 
 <html>
 
 <head>
-    <title>Admin Page</title>
+    <title>INDEX</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <style type="text/css">
         body {
-            background-color: #fafafa;
+            background-color: #f5f5f5;
         }
     </style>
 </head>
@@ -31,17 +35,26 @@
       <div class="float-left ml-5 pl-5">
           <h3>EMPLOYEER MANAGEMENT</h3>
       </div>
-      <div class="text-center float-right pr-5 mr-1">
+      <div class="text-center float-right pr-5">
         <form method="POST">
             <input type="submit" name="login" class="btn btn-primary" value="Login">
         </form>
       </div>
+      <div class="text-center float-right pr-3 pt-2">
+        <h5 class="float-right text-primary">Have an account??</h5>
+      </div>
     </div>
 
     <!-- LIST TABEL -->
-    <div class="container mt-5">
-      <div class="card text-center pt-5">
-        <div class="card-body pt-3">
+    <div class="container mt-5 pt-2">
+      <div class="card text-center">
+        <div class="card-body">
+          <form class="form-inline d-flex float-right md-form form-sm mt-0 pt-1" method="post">
+            <input type="submit" name="search" class="btn btn-link " value="">
+            <div class="form-group mx-sm-3 ">
+                <input class="form-control form-control-sm w-40" type="text" aria-label="Search" autofocus autocomplete="off" placeholder="Masukkan pencarian..." name="keyword">
+            </div>
+          </form>
           <table class="table m-0 text-center">
               <thead>
                   <tr>
@@ -71,7 +84,7 @@
 
           </table>
         </div>
-      </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -53,4 +53,17 @@
         mysqli_query($connect, "DELETE FROM employees where id='$id' ");
         return mysqli_affected_rows($connect);
     }
+
+    function search_data($keyword) {
+      $query = "SELECT * FROM employees
+      WHERE
+      name LIKE '%$keyword%' OR
+      address LIKE '%$keyword%' OR
+      salary LIKE '%$keyword%' OR
+      position LIKE '%$keyword%' OR
+      allowance LIKE '%$keyword%' OR
+      data_departement LIKE '%$keyword%' ";
+
+      return query($query);
+    }
 ?>
