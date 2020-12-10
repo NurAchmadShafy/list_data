@@ -74,17 +74,19 @@
                   </tr>
               </thead>
 
+              <?php $i = 1; ?>
               <?php foreach ($sql as $data) : ?>
                 <tbody id="myTable">
                   <tr>
-                    <th><?php echo $data['id'] ?></th>
+                    <th><?php echo $i ?></th>
                     <td><?php echo $data['name'] ?></td>
                     <td><?php echo $data['address'] ?></td>
-                    <td><?php echo $data['salary'] ?></td>
+                    <td><?php echo '<a>Rp </a>' . $data['salary'] ?></td>
                     <td><?php echo $data['position'] ?></td>
-                    <td><?php echo $data['allowance'] ?></td>
+                    <td><?php echo '<a>Rp </a>' . $data['allowance'] ?></td>
                     <td><?php echo $data['data_departement'] ?></td>
                   </tr>
+                  <?php $i++; ?>
                 </tbody>
               <?php endforeach; ?>
 

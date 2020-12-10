@@ -10,12 +10,12 @@
       header("Location:index.php");
   }
 
-  //if (!isset($_SESSION['login'])) header('LOCATION:login.php');
+  if (!isset($_SESSION['login'])) header('LOCATION:login.php');
   if (isset($_POST['button'])) logout();
 
   if (isset($_POST['add_data'])) {
       add_data($_POST);
-      header('Location : admin_page.php');
+      header('LOCATION:admin_page.php');
   }
 
   if(isset($_POST['save'])) {
@@ -94,20 +94,22 @@
                   </tr>
               </thead>
 
+              <?php $i = 1; ?>
               <?php foreach ($sql as $data) : ?>
                 <?php $debug = implode(",", $data)?>
                 <tbody id="myTable">
                   <tr>
-                    <th><?php echo $data['id'] ?></th>
+                    <th><?php echo $i ?></th>
                     <td>
                       <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><?php echo $data['name'] ?></a>
                     </td>
                     <td><?php echo $data['address'] ?></td>
-                    <td><?php echo $data['salary'] ?></td>
+                    <td><?php echo '<a>Rp </a>' . $data['salary'] ?></td>
                     <td><?php echo $data['position'] ?></td>
-                    <td><?php echo $data['allowance'] ?></td>
+                    <td><?php echo '<a>Rp </a>' . $data['allowance'] ?></td>
                     <td><?php echo $data['data_departement'] ?></td>
                   </tr>
+                  <?php $i++; ?>
                 </tbody>
               <?php endforeach; ?>
 
