@@ -15,7 +15,7 @@
 
   if (isset($_POST['add_data'])) {
       add_data($_POST);
-      header("Refresh:0");
+      header('Location : admin_page.php');
   }
 
   if(isset($_POST['save'])) {
