@@ -1,85 +1,88 @@
-  <?php
-session_start();
-require 'auth.php';
-$sql = query("SELECT * FROM employees");
+<?php
+  session_start();
+  require 'auth.php';
+  $sql = query("SELECT * FROM employees");
 
-function logout()
-{
-    unset($_SESSION['login']);
-    session_destroy();
-    header("Location:index.php");
-}
+  function logout()
+  {
+      unset($_SESSION['login']);
+      session_destroy();
+      header("Location:index.php");
+  }
 
-if (!isset($_SESSION['login'])) header('LOCATION:login.php');
-if (isset($_POST['button'])) logout();
+  //if (!isset($_SESSION['login'])) header('LOCATION:login.php');
+  if (isset($_POST['button'])) logout();
 
-if (isset($_POST['add_data'])) {
-    add_data($_POST);
-    header('LOCATION:admin_page.php');
-}
+  if (isset($_POST['add_data'])) {
+      add_data($_POST);
+      header("Refresh:0");
+  }
 
-if(isset($_POST['save'])) {
-  update_data($_POST);
-  header('LOCATION:admin_page.php');
-}
+  if(isset($_POST['save'])) {
+    update_data($_POST);
+    header("Refresh:0");
+  }
 
-if(isset($_POST['delete'])){
-  delete_data($_POST['id']);
-}
+  if(isset($_POST['delete'])){
+    delete_data($_POST['id']);
+    header("Refresh:0");
+  }
 
-if(isset($_POST['search'])) {
-    $sql = search_data($_POST['keyword']);
-}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>ADMIN PAGE</title>
+
+    <div>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </div>
 
     <style type="text/css">
         body {
-            background-color: #f5f5f5;
+            background-color: #f7f7f7;
         }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-</head>
+    </style> 
+  </head>
 
-<body>
+  <body>
 
-    <div class="pt-5 mx-sm-5">
-      <div class="float-left ml-5 pl-5 ">
-          <h3><a href="admin_page.php">DASHBOARD</a></h3>
-
+    <div class="container pt-5 mt-4">
+      <div class="float-left">
+        <h3 class="text-primary"><b>DASHBOARD</b></h3>
       </div>
-      <div class="text-center float-right mx-sm-2 pr-5 mr-5">
-          <form method="POST">
-              <input type="submit" name="button" class="btn btn-danger" value="Logout">
-          </form>
+      <div class="float-right">
+        <form method="POST">
+          <input type="submit" name="button" class="btn btn-danger" value="Logout">
+        </form>
       </div>
-      <div class="text-center float-right">
-          <form method="POST">
-              <a href="" class="btn btn-success" data-toggle="modal" data-target="#modal1">Add Data</a>
-          </form>
+      <div class="float-right pr-3">
+        <form method="POST">
+          <a href="" class="btn btn-success" data-toggle="modal" data-target="#modal1">Add Data</a>
+        </form>
       </div>
     </div>
 
-
-    <!-- LIST TABEL -->
-    <div class="container mt-5 pt-2">
-      <div class="card text-center">
+    <!-- Table Data -->
+    <div class="container pt-5 mt-3">
+      <div class="card">
         <div class="card-body">
-          <form class="form-inline d-flex float-right md-form form-sm mb-3" method="post">
-            <input type="submit" name="search" class="btn btn-link mb-1" value="">
-            <div class="form-group mx-sm-3">
-                <input class="form-control form-control-sm w-40" type="text" aria-label="Search" autofocus autocomplete="off" placeholder="Masukkan pencarian..." name="keyword">
+            <div class="form-inline d-flex float-left md-form form-sm pt-2">
+                <a class="btn btn-info">Date : <?php echo date("F j, Y"); ?></a>
+            </div>
+          <form class="form-inline d-flex float-right md-form form-sm pt-1" method="post">
+            <div class="form-group">
+                <input class="form-control mb-4" id="tableSearch" type="text" placeholder="search...">
             </div>
           </form>
-          <table class="table text-center m-0">
-              <thead>
+
+          <table class="table mt-5 text-center">
+            <thead>
                   <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>
@@ -92,23 +95,24 @@ if(isset($_POST['search'])) {
               </thead>
 
               <?php foreach ($sql as $data) : ?>
-                  <?php $debug = implode(",", $data)?>
-                  <tbody>
-                      <tr>
-                        <th><?php echo $data['id'] ?></th>
-                        <td>
-                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><?php echo $data['name'] ?></a>
-                        </td>
-                        <td><?php echo $data['address'] ?></td>
-                        <td><?php echo $data['salary'] ?></td>
-                        <td><?php echo $data['position'] ?></td>
-                        <td><?php echo $data['allowance'] ?></td>
-                        <td><?php echo $data['data_departement'] ?></td>
-                      </tr>
-                  </tbody>
+                <?php $debug = implode(",", $data)?>
+                <tbody id="myTable">
+                  <tr>
+                    <th><?php echo $data['id'] ?></th>
+                    <td>
+                      <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><?php echo $data['name'] ?></a>
+                    </td>
+                    <td><?php echo $data['address'] ?></td>
+                    <td><?php echo $data['salary'] ?></td>
+                    <td><?php echo $data['position'] ?></td>
+                    <td><?php echo $data['allowance'] ?></td>
+                    <td><?php echo $data['data_departement'] ?></td>
+                  </tr>
+                </tbody>
               <?php endforeach; ?>
 
           </table>
+
         </div>
       </div>
     </div>
@@ -129,7 +133,8 @@ if(isset($_POST['search'])) {
                             <label for="name" class="text-primary">Name:</label><br>
                             <input type="text" name="name" id="name" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div cla
+                        ss="form-group">
                             <label for="address" class="text-primary">Address:</label><br>
                             <input type="text" name="address" id="address" class="form-control" required>
                         </div>
@@ -207,8 +212,17 @@ if(isset($_POST['search'])) {
         </form>
       </div>
 
-      <script>
-          $(document).ready(function(){
+    <script>
+      $(document).ready(function(){
+        $("#tableSearch").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+
+      $(document).ready(function(){
             var valuess;
             $(".openEditDialog").click(function() {
               valuess = $(this).attr("data-id");
@@ -222,7 +236,7 @@ if(isset($_POST['search'])) {
               $("#data_departementEdit").val(valuess[6]);
             });
           });
-      </script>
-</body>
+    </script>
+  </body>
 
 </html>
