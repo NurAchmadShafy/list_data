@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2020 at 10:22 AM
+-- Generation Time: Dec 11, 2020 at 08:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -31,9 +31,9 @@ CREATE TABLE `employees` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `salary` int(30) NOT NULL,
+  `salary` int(13) NOT NULL,
   `position` text NOT NULL,
-  `allowance` int(30) NOT NULL,
+  `allowance` int(13) NOT NULL,
   `data_departement` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,9 +42,11 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `name`, `address`, `salary`, `position`, `allowance`, `data_departement`) VALUES
-(1, 'Rais', 'Jalan Suryo Kusumo no 365', 17000, 'Directur', 9000, 'CAI'),
-(2, 'Achmad', 'Jalan Suryo Kusumo no 700', 19000, 'Office Boy', 9000, 'CAI'),
-(3, 'jaja', 'Jalan Suryo Kusumo no 659', 15000, 'Office Boy', 9000, 'CAI');
+(1, 'Achmad', 'Jalan Suryo Kusumo no 365', 17000, 'Office Boy', 9000, 'BlaBla'),
+(3, 'Indah', 'Jalan Suryo Kusumo no 700', 18000, 'Directur', 8000, 'CAI'),
+(4, 'Rais', 'Jalan Suryo Kusumo no 700', 21000, 'Directur', 2000000, 'CAs'),
+(5, 'Riski', 'Jalan Suryo Kusumo no 000', 198000, 'Secretary', 179000, 'FIB'),
+(6, 'Rashyif', 'Jalan Suryo Purbalinggo no 365', 150000, 'Boss', 890000, 'FIB');
 
 -- --------------------------------------------------------
 
@@ -91,7 +93,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
