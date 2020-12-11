@@ -22,8 +22,8 @@
   <body>
     <div class="container mt-5 pt-5">
       <div class="card text-center">
-        <div class="card-header ">
-          <a href="index.php" class="card-text text-light"><q>THE BIG THREE</q></a>
+        <div class="card-header">
+          <h5><a href="index.php" class="card-text text-primary"><q><b>THE BIG THREE</b></q></a></h5>
         </div>
         <div class="card-body ">
           <div class="container text-center d-flex justify-content-around">
@@ -34,7 +34,7 @@
                   <div class="card-body">
                     <p class="card-text text-primary">NUR ACHMAD</p>
                     <q class="card-text">Some Freaking & Crazy boy!!</q>
-                </div>
+                  </div>
               </div>
             </div>
 
